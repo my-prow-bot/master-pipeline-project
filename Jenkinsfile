@@ -10,16 +10,14 @@ pipeline {
                 stage('Run Job B') {
                     steps { build job: 'job-B', parameters: [string(name: 'APP_VERSION', value: '2.0.0')] }
                 }
-                stage('Run Job C') {
-                    steps { build job: 'job-C', parameters: [string(name: 'APP_VERSION', value: '2.0.0')] }
-                }
+               
             }
         }
 
         stage('Export Job Configs to YAML') {
             steps {
                 script {
-                    def jobs = ['job-A', 'job-B', 'job-C']
+                    def jobs = ['job-A', 'job-B']
                     for (job in jobs) {
                         sh """
                             curl -u "\$JENKINS_USER:\$JENKINS_TOKEN" \\
